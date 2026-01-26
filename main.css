@@ -122,7 +122,7 @@ header nav ul li:not(.active) a:hover {
     padding-top: 50px;
 }
 
-.popular h3 {
+.popular h2 {
     font-size: 31px;
     font-weight: 600;
 }
@@ -232,9 +232,7 @@ gap: 30px;
 }
 
 
-.recipe-card {
-text-align: left;
-}
+
 
 
 .recipe-card img {
@@ -264,6 +262,7 @@ font-weight: 600;
 .search-bar input {
     width: 100%;
 }
+
 
 .filters {
     display: flex;
@@ -360,3 +359,22 @@ width: 100%;
 min-width: unset; 
 box-sizing: border-box;
 }
+
+
+.recipes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.recipe-card {
+    border: 10px solid white;
+    width: 300px;
+}
+
+.recipe-card span {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: black;
+}
+
