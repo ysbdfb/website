@@ -84,12 +84,12 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: all 500ms ease;
     align-self: flex-start;
 }
 
 .btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .tag-more {
