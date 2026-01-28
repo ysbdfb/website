@@ -1,3 +1,5 @@
+
+
 .username {
     padding-top: 70px;
 }
@@ -27,25 +29,4 @@
 .favorites h2 {
     font-size: 31px;
     font-weight: 600;
-}
-
-@media (max-width: 768px) {
-    .username {
-        padding-top: 40px;
-        text-align: center;
-    }
-
-    .username h1 {
-        font-size: 32px;
-    }
-
-    .created-recipes,
-    .favorites {
-        padding-top: 40px;
-    }
-
-    .created-recipes h2,
-    .favorites h2 {
-        font-size: 24px;
-    }
 }
