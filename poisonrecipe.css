@@ -162,3 +162,50 @@
     background: #f0f0f0;
     color: #000;
 }
+
+.quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .recipe-creator {
+        padding: 30px 15px;
+        max-width: 100%;
+    }
+
+    .recipe-creator h1 {
+        font-size: 32px;
+    }
+
+    .recipe-creator p {
+        font-size: 16px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .image-upload {
+        height: 200px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .ingredient-item input,
+    .step-item textarea {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        align-self: stretch;
+        margin-top: 15px;
+    }
+
+    .quick-tags {
+        justify-content: center;
+    }
+}

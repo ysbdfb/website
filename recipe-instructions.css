@@ -1,5 +1,5 @@
 .recipe-instructions {
-    padding-bottom: 100px;
+    padding-bottom: 50px;
     position: relative;
 }
 
@@ -7,6 +7,9 @@
     position: absolute;
     top: 90px;
     right: 0;
+    max-width: 250px;
+    width: 100%;
+    height: auto;
 }
 
 .recipe--info {
@@ -27,11 +30,43 @@
 
 .recipe-instructions .ingredients,
 .recipe-instructions .steps {
-     margin: 30px 0;
+    margin: 30px 0;
 }
 
 .recipe-instructions .ingredients li,
 .recipe-instructions .steps li {
     list-style: none;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
 
+@media (max-width: 768px) {
+    .recipe-instructions {
+        padding-bottom: 30px;
+    }
+
+    .recipe-instructions img {
+        position: static;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .recipe--info {
+        padding-top: 40px;
+        width: 100%;
+    }
+
+    .recipe--info h1 {
+        font-size: 32px;
+    }
+
+    .recipe--info p {
+        font-size: 16px;
+        margin: 20px 0;
+    }
+
+    .recipe-instructions .ingredients li,
+    .recipe-instructions .steps li {
+        padding-left: 0;
+    }
 }
