@@ -18,7 +18,20 @@
 .recipe-form {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-group {
@@ -33,17 +46,23 @@
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.ingredient-item input,
+.step-item textarea {
     padding: 12px 16px;
     border: 2px solid #000;
     border-radius: 6px;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.ingredient-item input:focus,
+.step-item textarea:focus {
     border-color: lawngreen;
 }
 
@@ -52,10 +71,74 @@
     min-height: 100px;
 }
 
-.quick-tags {
+.step-item textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.ingredients-list,
+.steps-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
+}
+
+.ingredients-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.add-btn {
+    background: #f0f0f0;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.btn {
+    background: lawngreen;
+    color: black;
+    border-radius: 50px;
+    padding: 15px 30px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.image-upload {
+    width: 100%;
+    height: 250px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+}
+
+.image-placeholder {
+    text-align: center;
 }
 
 .tag-btn {
@@ -75,41 +158,7 @@
     color: #000;
 }
 
-.btn {
-    background: lawngreen;
-    color: black;
-    border-radius: 50px;
-    padding: 15px 30px;
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 500ms ease;
-    align-self: flex-start;
-}
-
-.btn:hover {
-    transform: scale(1.1);
-}
-
 .tag-more {
     background: #f0f0f0;
     color: #000;
-}
-
-.image-upload {
-    float: right;
-    width: 250px;
-    height: 250px;
-    margin-left: 10px;
-    border: 2px dashed #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 14px;
-}
-
-.image-placeholder {
-    text-align: center;
 }
