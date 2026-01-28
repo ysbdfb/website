@@ -35,6 +35,12 @@ header {
     padding: 50px 0;
 }
 
+header.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 header .lastmeal,
 footer .blocks .lastmeal {
     text-transform: uppercase;
@@ -167,6 +173,7 @@ hr {
 footer {
     padding: 50px 0;
     background: lightgray;
+    margin-top: auto;
 }
 
 footer .blocks {
@@ -187,6 +194,103 @@ footer .blocks ul li {
     margin-top: 7px;
     opacity: 0.8;
 }
+
+.burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px; cursor: pointer;
+}
+.burger span {
+    width: 28px;
+    height: 3px;
+    background: black;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 90%;
+    }
+
+    header {
+        padding: 20px 0;
+        position: relative;
+    }
+
+    header nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        z-index: 10;
+        width: auto;
+    }
+
+    header nav.active {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .hero {
+        padding-bottom: 40px;
+    }
+
+    .hero--info {
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    .hero img {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .recipes {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .recipe-card {
+        width: 100%;
+    }
+
+    .recipe-card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    footer .blocks {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    footer .blocks div {
+        width: 100%;
+    }
+
+    footer .blocks ul {
+        padding: 0;
+    }
+}
+
+
+
+
 
 
 

@@ -162,3 +162,27 @@
     background: #f0f0f0;
     color: #000;
 }
+
+@media (max-width: 768px) {
+
+    .recipe-creator {
+        padding: 30px 0;
+        max-width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-column {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .tag-btn,
+    .tag-more {
+        margin-bottom: 10px;
+    }
+
+}

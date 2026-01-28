@@ -5,6 +5,7 @@
     <title>Last meal</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="account.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
@@ -20,6 +21,11 @@
             <li class="active"><a href="account.html">Witch account</a></li>
         </ul>
     </nav>
+    <div class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 </header>
 <hr>
 <div class="username container">
@@ -91,5 +97,10 @@
         </div>
     </div>
 </footer>
+    <script>
+        document.querySelector('.burger').onclick = () => {
+            document.querySelector('header nav').classList.toggle('active');
+        };
+    </script>
 </body>
 </html>

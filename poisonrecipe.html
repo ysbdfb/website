@@ -9,12 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <div class="wrapper">
         <header class="container">
-            <span class="lastmeal">Last Meal</span>
+            <span class="lastmeal"><a href="index.html">Last Meal</a></span>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -23,6 +24,11 @@
                     <li><a href="account.html">Witch account</a></li>
                 </ul>
             </nav>
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </header>
 
         <hr>
@@ -125,6 +131,10 @@
             </div>
         </footer>
     </div>
+    <script>
+        document.querySelector('.burger').onclick = () => {
+            document.querySelector('header nav').classList.toggle('active');
+        };
+    </script>
 </body>
-
 </html>

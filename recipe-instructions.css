@@ -33,5 +33,22 @@
 .recipe-instructions .ingredients li,
 .recipe-instructions .steps li {
     list-style: none;
+}
 
+@media (max-width: 768px) {
+
+    .recipe-instructions {
+        padding-bottom: 40px;
+    }
+
+    .recipe-instructions img {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .recipe--info {
+        width: 100%;
+        padding-top: 20px;
+    }
 }
