@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Recipes - Last meal</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="recipes.css">
 </head>
 <body>
 
