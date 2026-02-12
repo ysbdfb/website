@@ -11,27 +11,22 @@
 
 .created-recipes {
     padding-top: 70px;
-
 }
 
 .created-recipes h2 {
     font-size: 31px;
     font-weight: 600;
-    padding-bottom: 35px;
 }
 
 .created-recipes h2 .s {
     text-decoration: line-through;
-    text-decoration-color: lawngreen;
 }
 
 .favorites {
     padding-top: 70px;
-    padding-bottom: 70px;
 }
 
 .favorites h2 {
     font-size: 31px;
     font-weight: 600;
-    padding-bottom: 35px;
 }
