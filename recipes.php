@@ -106,27 +106,32 @@
         </div>
     </section>
 
-    <section class="recipes-grid">
-        <article class="recipe-card">
-            <img src="yogurt.jpg" alt="Breakfast picture">
-            <h3>Yogurt with fig & pistachios</h3>
-        </article>
-
-        <article class="recipe-card">
-            <img src="sandwich.jpg" alt="Lunch picture">
-            <h3>Turkey breast sandwich</h3>
-        </article>
-
-        <article class="recipe-card">
-            <img src="shrimps_noodles.jpg" alt="Dinner picture">
-            <h3>Spicy shrimp noodles</h3>
-        </article>
-
-        <article class="recipe-card">
-            <img src="chia.jpg" alt="Dessert picture">
-            <h3>Chia pudding</h3>
-        </article>
-    </section>
+    <div class="recipes">
+        <div class="recipe-card">
+        <img src="Screenshot%202026-01-26%20023027.png" alt="Dish image">
+            <div class="recipe-card_content">
+                <span><a href="toast.html">Avocado salmon toast</a></span>
+            </div>
+        </div>
+        <div class="recipe-card">
+        <img src="Screenshot%202026-01-26%20023430.png" alt="Dish image">
+            <div class="recipe-card_content">
+                <span><a href="casserole.html">Сottage cheese casserole</a></span>
+            </div>
+        </div>
+        <div class="recipe-card">
+        <img src="Screenshot%202026-01-26%20005619.png" alt="Dish image">
+            <div class="recipe-card_content">
+                <span><a href="curry-chicken-recipe.html">Curry chicken with rice</a></span>
+            </div>
+        </div>
+        <div class="recipe-card">
+        <img src="Screenshot%202026-01-26%20022340.png" alt="Dish image">
+            <div class="recipe-card_content">
+                <span><a href="chia.html">Chia pudding with mango</a></span>
+            </div>
+        </div>
+    </div>
 
 </main>
 
