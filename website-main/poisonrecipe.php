@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Share your poison — LastMeal</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="poisonrecipe.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <?php include 'header.php'; ?>
+    
+
+        <hr>
+
+        <section class="container">
+            <div class="recipe-creator">
+                <h1>Create a recipe</h1>
+                <p>Time to share your diabolical ideas with the community!</p>
+
+                <form class="recipe-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="recipe-name">Recipe Name</label>
+                                <input type="text" id="recipe-name" placeholder="Enter recipe name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipe-description">Description</label>
+                                <textarea id="recipe-description" rows="4"
+                                    placeholder="Describe your recipe"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="image-upload">
+                            <div class="image-placeholder">
+                                <span>Drop image here</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ingredients-steps">
+                        <div class="form-group">
+                            <label>Ingredients</label>
+                            <div class="ingredients-list">
+                                <div class="ingredient-item">
+                                    <input type="text" placeholder="Ingredient">
+                                </div>
+                                <div class="ingredient-item">
+                                    <input type="text" placeholder="Ingredient">
+                                </div>
+                            </div>
+                            <button type="button" class="add-btn">Add Ingredient</button>
+                        </div>
+
+                        <div class="steps">
+                            <div class="form-group">
+                                <label>Steps</label>
+                                <div class="steps-list">
+                                    <div class="step-item">
+                                        <textarea rows="2" placeholder="Step description"></textarea>
+                                    </div>
+                                    <div class="step-item">
+                                        <textarea rows="2" placeholder="Step description"></textarea>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-btn">Add Step</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Add some tags</label>
+                            <div class="quick-tags">
+                                <button type="button" class="tag-btn">15 min</button>
+                                <button type="button" class="tag-btn">High-protein</button>
+                                <button type="button" class="tag-btn">Keto</button>
+                                <button type="button" class="tag-btn">Breakfast</button>
+                                <button type="button" class="tag-btn">Chicken</button>
+                                <button type="button" class="tag-btn tag-more">...</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <?php include 'footer.php'; ?>
+        
+    </div>
+    <script>
+        document.querySelector('.burger').onclick = () => {
+            document.querySelector('header nav').classList.toggle('active');
+        };
+    </script>
+</body>
+</html>
