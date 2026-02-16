@@ -1,3 +1,51 @@
+<?php
+$conn = new mysqli("localhost", "bbcap25_10", "g8jraAJ8", "wp_bbcap25_10");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+
+    $ingredients = isset($_POST['ingredients'])
+        ? implode(", ", array_filter($_POST['ingredients']))
+        : "";
+
+    $steps = isset($_POST['steps'])
+        ? implode(" | ", array_filter($_POST['steps']))
+        : "";
+
+  
+    $imagePath = '';
+    if (isset($_FILES['recipe_image']) && $_FILES['recipe_image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = 'uploads/'; 
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        $tmpName = $_FILES['recipe_image']['tmp_name'];
+        $fileName = basename($_FILES['recipe_image']['name']);
+        $targetFile = $uploadDir . time() . '_' . $fileName;
+
+        if (move_uploaded_file($tmpName, $targetFile)) {
+            $imagePath = $targetFile;
+        }
+    }
+
+    // Вставка в базу данных
+    $stmt = $conn->prepare("INSERT INTO recipes (title, ingredients, instructions, description, image) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $title, $ingredients, $steps, $description, $imagePath);
+
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: poisonrecipe.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,86 +62,68 @@
 
 <body>
     <?php include 'header.php'; ?>
-    
 
-        <hr>
+    <hr>
 
-        <section class="container">
-            <div class="recipe-creator">
-                <h1>Create a recipe</h1>
-                <p>Time to share your diabolical ideas with the community!</p>
+    <section class="container">
+        <div class="recipe-creator">
+            <h1>Create a recipe</h1>
+            <p>Time to share your diabolical ideas with the community!</p>
 
-                <form class="recipe-form">
-                    <div class="form-row">
-                        <div class="form-column">
-                            <div class="form-group">
-                                <label for="recipe-name">Recipe Name</label>
-                                <input type="text" id="recipe-name" placeholder="Enter recipe name">
-                            </div>
+            <form method="POST" action="" class="recipe-form" enctype="multipart/form-data">
 
-                            <div class="form-group">
-                                <label for="recipe-description">Description</label>
-                                <textarea id="recipe-description" rows="4"
-                                    placeholder="Describe your recipe"></textarea>
-                            </div>
+                <div class="form-row">
+                    <div class="form-column">
+
+                        <div class="form-group">
+                            <label>Recipe Name</label>
+                            <input type="text" name="title" placeholder="Enter recipe name" required>
                         </div>
 
-                        <div class="image-upload">
-                            <div class="image-placeholder">
-                                <span>Drop image here</span>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" rows="4" placeholder="Describe your recipe" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Upload Image</label>
+                            <input type="file" name="recipe_image" accept="image/*">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ingredients-steps">
+
+                    <div class="form-group">
+                        <label>Ingredients</label>
+                        <div class="ingredients-list">
+                            <div class="ingredient-item">
+                                <input type="text" name="ingredients[]" placeholder="Ingredient">
                             </div>
                         </div>
                     </div>
 
-                    <div class="ingredients-steps">
-                        <div class="form-group">
-                            <label>Ingredients</label>
-                            <div class="ingredients-list">
-                                <div class="ingredient-item">
-                                    <input type="text" placeholder="Ingredient">
-                                </div>
-                                <div class="ingredient-item">
-                                    <input type="text" placeholder="Ingredient">
-                                </div>
-                            </div>
-                            <button type="button" class="add-btn">Add Ingredient</button>
-                        </div>
-
-                        <div class="steps">
-                            <div class="form-group">
-                                <label>Steps</label>
-                                <div class="steps-list">
-                                    <div class="step-item">
-                                        <textarea rows="2" placeholder="Step description"></textarea>
-                                    </div>
-                                    <div class="step-item">
-                                        <textarea rows="2" placeholder="Step description"></textarea>
-                                    </div>
-                                </div>
-                                <button type="button" class="add-btn">Add Step</button>
+                    <div class="form-group">
+                        <label>Steps</label>
+                        <div class="steps-list">
+                            <div class="step-item">
+                                <textarea name="steps[]" rows="2" placeholder="Step description"></textarea>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Add some tags</label>
-                            <div class="quick-tags">
-                                <button type="button" class="tag-btn">15 min</button>
-                                <button type="button" class="tag-btn">High-protein</button>
-                                <button type="button" class="tag-btn">Keto</button>
-                                <button type="button" class="tag-btn">Breakfast</button>
-                                <button type="button" class="tag-btn">Chicken</button>
-                                <button type="button" class="tag-btn tag-more">...</button>
-                            </div>
-                        </div>
+                    <button type="submit" name="submit" class="btn">Submit</button>
 
-                        <button type="submit" class="btn">Submit</button>
-                </form>
-            </div>
-        </section>
+                </div>
 
-        <?php include 'footer.php'; ?>
-        
-    </div>
+            </form>
+
+        </div>
+    </section>
+
+    <?php include 'footer.php'; ?>
+
     <script>
         document.querySelector('.burger').onclick = () => {
             document.querySelector('header nav').classList.toggle('active');
