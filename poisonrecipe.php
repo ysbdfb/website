@@ -1,5 +1,7 @@
 <?php
-$conn = new mysqli("localhost", "bbcap25_10", "g8jraAJ8", "wp_bbcap25_10");
+require_once "config.php";
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -34,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Вставка в базу данных
     $stmt = $conn->prepare("INSERT INTO recipes (title, ingredients, instructions, description, image) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $title, $ingredients, $steps, $description, $imagePath);
 
