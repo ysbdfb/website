@@ -1,0 +1,29 @@
+<div id="auth">
+  <form id="loginForm" method="POST" action="account.php">
+    <h2>Back for more poison, hero?</h2>
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Secret ingredient" required>
+    <button type="submit" name="login">Log in</button>
+    <p>Don’t let your taste buds wait! <a href="#" onclick="showRegister()">Sign up</a></p>
+  </form>
+
+  <form id="registerForm" method="POST" action="account.php" style="display:none;">
+    <h2>Сreate your spell</h2>
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Secret ingredient" required>
+    <button type="submit" name="register">Sign up</button>
+    <p>Already have a taste for it? <a href="#" onclick="showLogin()">Log in</a></p>
+  </form>
+</div>
+
+<script>
+function showRegister() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').style.display = 'block';
+}
+function showLogin() {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+}
+</script>
