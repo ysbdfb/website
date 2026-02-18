@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $steps = isset($_POST['steps'])
         ? implode(" | ", array_filter($_POST['steps']))
         : "";
-
   
     $imagePath = '';
     if (isset($_FILES['recipe_image']) && $_FILES['recipe_image']['error'] === UPLOAD_ERR_OK) {
@@ -59,6 +58,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        .add-btn {
+            background-color: #eee;
+            border: 1px dashed #333;
+            color: #333;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .add-btn:hover {
+            background-color: #ddd;
+            border-color: #000;
+        }
+        .ingredient-item, .step-item {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -98,23 +118,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="form-group">
                         <label>Ingredients</label>
-                        <div class="ingredients-list">
+                        <div class="ingredients-list" id="ingredients-container">
                             <div class="ingredient-item">
-                                <input type="text" name="ingredients[]" placeholder="Ingredient">
+                                <input type="text" name="ingredients[]" placeholder="Ingredient 1">
                             </div>
                         </div>
+                        <button type="button" class="add-btn" onclick="addIngredient()">+ Add Ingredient</button>
                     </div>
 
                     <div class="form-group">
                         <label>Steps</label>
-                        <div class="steps-list">
+                        <div class="steps-list" id="steps-container">
                             <div class="step-item">
-                                <textarea name="steps[]" rows="2" placeholder="Step description"></textarea>
+                                <textarea name="steps[]" rows="2" placeholder="Step 1 description"></textarea>
                             </div>
                         </div>
+                         <button type="button" class="add-btn" onclick="addStep()">+ Add Step</button>
                     </div>
 
-                    <button type="submit" name="submit" class="btn">Submit</button>
+                    <button type="submit" name="submit" class="btn" style="margin-top: 20px;">Submit Recipe</button>
 
                 </div>
 
@@ -129,6 +151,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.querySelector('.burger').onclick = () => {
             document.querySelector('header nav').classList.toggle('active');
         };
+
+        function addIngredient() {
+            const container = document.getElementById('ingredients-container');
+            
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('ingredient-item');
+            
+            const count = container.children.length + 1;
+            
+            newDiv.innerHTML = `<input type="text" name="ingredients[]" placeholder="Ingredient ${count}">`;
+            
+            container.appendChild(newDiv);
+        }
+
+        function addStep() {
+            const container = document.getElementById('steps-container');
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('step-item');
+            
+            const count = container.children.length + 1;
+            
+            newDiv.innerHTML = `<textarea name="steps[]" rows="2" placeholder="Step ${count} description"></textarea>`;
+            
+            container.appendChild(newDiv);
+        }
     </script>
 </body>
 </html>

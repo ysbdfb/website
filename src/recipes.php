@@ -84,7 +84,6 @@ $oldRecipes = [
     </div>
 
     <div class="filters">
-
         <div class="filter">
             <button class="filter-btn">Diet</button>
             <ul class="filter-menu">
@@ -94,7 +93,6 @@ $oldRecipes = [
                 <li data-filter="diet" data-value="gluten-free">Gluten-free</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Prep time</button>
             <ul class="filter-menu">
@@ -103,7 +101,6 @@ $oldRecipes = [
                 <li data-filter="prep" data-value="60-plus">60+ min</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Difficulty</button>
             <ul class="filter-menu">
@@ -112,7 +109,6 @@ $oldRecipes = [
                 <li data-filter="difficulty" data-value="hard">Hard</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Cuisine</button>
             <ul class="filter-menu">
@@ -122,7 +118,6 @@ $oldRecipes = [
                 <li data-filter="cuisine" data-value="french">French</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Flavor</button>
             <ul class="filter-menu">
@@ -132,7 +127,6 @@ $oldRecipes = [
                 <li data-filter="flavor" data-value="sour">Sour</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Meal type</button>
             <ul class="filter-menu">
@@ -142,7 +136,6 @@ $oldRecipes = [
                 <li data-filter="meal" data-value="dessert">Dessert</li>
             </ul>
         </div>
-
         <div class="filter">
             <button class="filter-btn">Allergens</button>
             <ul class="filter-menu">
@@ -152,7 +145,6 @@ $oldRecipes = [
                 <li data-filter="allergens" data-value="seafood">Seafood</li>
             </ul>
         </div>
-
     </div>
 </section>
 
@@ -180,9 +172,11 @@ $oldRecipes = [
 </div>
 <?php endforeach; ?>
 
+
 <?php while ($row = $result->fetch_assoc()): ?>
 <div class="recipe-card"
      data-title="<?= strtolower($row['title']) ?>"
+     
      data-diet="<?= strtolower($row['diet'] ?? '') ?>"
      data-prep="<?= strtolower($row['prep'] ?? '') ?>"
      data-difficulty="<?= strtolower($row['difficulty'] ?? '') ?>"
@@ -192,15 +186,15 @@ $oldRecipes = [
      data-allergens="<?= strtolower($row['allergens'] ?? '') ?>">
 
     <img src="<?= !empty($row['image']) ? htmlspecialchars($row['image']) : 'placeholder.png'; ?>" alt="Dish image">
+    
     <div class="recipe-card_content">
-        <?php if (!empty($row['file'])): ?>
-            <span><a href="<?= htmlspecialchars($row['file']); ?>">
+        <span>
+            <a href="view_recipe.php?id=<?= $row['id']; ?>">
                 <?= htmlspecialchars($row['title']); ?>
-            </a></span>
-        <?php else: ?>
-            <span><?= htmlspecialchars($row['title']); ?></span>
-        <?php endif; ?>
+            </a>
+        </span>
     </div>
+
 </div>
 <?php endwhile; ?>
 
@@ -218,7 +212,6 @@ document.querySelector('.burger').onclick = () => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-
     const searchInput = document.querySelector(".search-bar input");
     const searchButton = document.querySelector(".search-btn");
     const filterItems = document.querySelectorAll(".filter-menu li");
@@ -251,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     filterItems.forEach(item => {
         item.addEventListener("click", function () {
-
             const filterType = this.dataset.filter;
             const filterValue = this.dataset.value;
 
@@ -268,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
             filterRecipes();
         });
     });
-
 });
 </script>
 
