@@ -31,8 +31,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+if (isset($_POST['delete_favorite'])) {
+    $id = intval($_POST['id']);
+    $stmt = $conn->prepare("DELETE FROM favorites WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $message = "Favorite entry deleted successfully";
+    $stmt->close();
+}
+
 $users = $conn->query("SELECT id, username, email, role, created_at FROM users ORDER BY id DESC");
 $recipes = $conn->query("SELECT id, title FROM recipes ORDER BY id DESC");
+
+
+$favorites = $conn->query("
+    SELECT f.id, f.saved_at, u.username AS user, r.title AS recipe, r.id AS recipe_id
+    FROM favorites f
+    JOIN users u ON f.user_id = u.id
+    JOIN recipes r ON f.recipe_id = r.id
+    ORDER BY f.saved_at DESC
+");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -106,6 +126,36 @@ $recipes = $conn->query("SELECT id, title FROM recipes ORDER BY id DESC");
         </tr>
         <?php endwhile; ?>
     </table>
+
+
+<h2>Favorites (<?= $favorites->num_rows ?> total)</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Recipe</th>
+        <th>Saved At</th>
+        <th>Action</th>
+    </tr>
+    <?php while ($f = $favorites->fetch_assoc()): ?>
+    <tr>
+        <td><?= $f['id'] ?></td>
+        <td><?= htmlspecialchars($f['user']) ?></td>
+        <td>
+            <a href="../view_recipe.php?id=<?= $f['recipe_id'] ?>" target="_blank">
+                <?= htmlspecialchars($f['recipe']) ?>
+            </a>
+        </td>
+        <td><?= $f['saved_at'] ?></td>
+        <td>
+            <form method="POST" onsubmit="return confirm('Удалить это избранное?');">
+                <input type="hidden" name="id" value="<?= $f['id'] ?>">
+                <button type="submit" name="delete_favorite" class="btn-delete">Delete</button>
+            </form>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+</table>
 
     <p style="margin-top:40px;">
         <a href="../index.php">← Back to main site</a>

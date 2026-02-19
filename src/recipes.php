@@ -1,8 +1,22 @@
 <?php
 require_once "config.php";
+require_once "auth.php";
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$favorite_ids = [];
+if (is_logged_in()) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT recipe_id FROM favorites WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $favorite_ids[] = $row['recipe_id'];
+    }
+    $stmt->close();
+}
 
 $result = $conn->query("SELECT * FROM recipes ORDER BY id DESC");
 
@@ -64,7 +78,7 @@ $oldRecipes = [
     <meta charset="UTF-8">
     <title>Last Meal</title>
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="recipes.css">
+    <link rel="stylesheet" href="recipes.css?v=<?= time() ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -160,12 +174,13 @@ $oldRecipes = [
      data-flavor="<?= $recipe['flavor'] ?>"
      data-meal="<?= $recipe['meal'] ?>"
      data-allergens="<?= $recipe['allergens'] ?>">
-
-    <img src="<?= htmlspecialchars($recipe['image']); ?>" alt="Dish image">
+    
+    <img src="<?= htmlspecialchars($recipe['image']) ?>" alt="Dish image">
+    
     <div class="recipe-card_content">
         <span>
-            <a href="<?= htmlspecialchars($recipe['file']); ?>">
-                <?= htmlspecialchars($recipe['title']); ?>
+            <a href="<?= htmlspecialchars($recipe['file']) ?>">
+                <?= htmlspecialchars($recipe['title']) ?>
             </a>
         </span>
     </div>
@@ -176,25 +191,30 @@ $oldRecipes = [
 <?php while ($row = $result->fetch_assoc()): ?>
 <div class="recipe-card"
      data-title="<?= strtolower($row['title']) ?>"
-     
-     data-diet="<?= strtolower($row['diet'] ?? '') ?>"
-     data-prep="<?= strtolower($row['prep'] ?? '') ?>"
-     data-difficulty="<?= strtolower($row['difficulty'] ?? '') ?>"
-     data-cuisine="<?= strtolower($row['cuisine'] ?? '') ?>"
-     data-flavor="<?= strtolower($row['flavor'] ?? '') ?>"
-     data-meal="<?= strtolower($row['meal'] ?? '') ?>"
-     data-allergens="<?= strtolower($row['allergens'] ?? '') ?>">
-
-    <img src="<?= !empty($row['image']) ? htmlspecialchars($row['image']) : 'placeholder.png'; ?>" alt="Dish image">
+     data-diet="<?= $row['diet'] ?? '' ?>"
+     data-prep="<?= $row['prep'] ?? '' ?>"
+     data-difficulty="<?= $row['difficulty'] ?? '' ?>"
+     data-cuisine="<?= $row['cuisine'] ?? '' ?>"
+     data-flavor="<?= $row['flavor'] ?? '' ?>"
+     data-meal="<?= $row['meal'] ?? '' ?>"
+     data-allergens="<?= $row['allergens'] ?? '' ?>">
     
+    <img src="<?= htmlspecialchars($row['image'] ?: 'default_food.png') ?>" alt="Dish image">
+    
+<?php if (is_logged_in()): ?>
+    <button class="favorite-btn <?php echo in_array($row['id'], $favorite_ids) ? 'added' : ''; ?>" 
+            data-recipe-id="<?= $row['id'] ?>">
+        <?php echo in_array($row['id'], $favorite_ids) ? '♥' : '♡'; ?>
+    </button>
+<?php endif; ?>
+
     <div class="recipe-card_content">
         <span>
-            <a href="view_recipe.php?id=<?= $row['id']; ?>">
-                <?= htmlspecialchars($row['title']); ?>
+            <a href="view_recipe.php?id=<?= $row['id'] ?>">
+                <?= htmlspecialchars($row['title']) ?>
             </a>
         </span>
     </div>
-
 </div>
 <?php endwhile; ?>
 
@@ -207,6 +227,34 @@ $oldRecipes = [
 </div>
 
 <script>
+
+document.querySelectorAll('.favorite-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const recipeId = this.dataset.recipeId;
+        if (!recipeId) return;
+        
+        fetch('add_to_favorites.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'recipe_id=' + recipeId
+        })
+        .then(res => res.text())
+        .then(text => {
+            console.log('Answer:', text);
+            if (text === 'added') {
+                btn.classList.add('added');
+                btn.textContent = '♥';
+            } else if (text === 'already') {
+                alert('Already favorited');
+            } else if (text === 'not_logged_in') {
+                alert('Log in to add');
+            } else {
+                console.error('Error:', text);
+            }
+        })
+        .catch(err => console.error('Fetch error:', err));
+    });
+});
 document.querySelector('.burger').onclick = () => {
     document.querySelector('header nav').classList.toggle('active');
 };
