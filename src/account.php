@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "config.php";
+require_once "auth.php";
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
@@ -8,15 +9,23 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$error = '';
+
 if (isset($_POST['register'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $username = trim($_POST['username']);
+    $email    = trim($_POST['email']);
+    $password = $_POST['password'];
+
+    $hashed = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $password);
+    $stmt->bind_param("sss", $username, $email, $hashed);
+
     if ($stmt->execute()) {
-        $_SESSION['user'] = $username;
+        $_SESSION["user_id"] = $conn->insert_id;
+        $_SESSION["user"]    = $username;
+        $_SESSION["role"]    = "user";
+
         header("Location: account.php");
         exit();
     } else {
@@ -25,28 +34,17 @@ if (isset($_POST['register'])) {
 }
 
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hash);
-        $stmt->fetch();
-        if (password_verify($password, $hash)) {
-            $_SESSION['user'] = $username;
-            header("Location: account.php");
-            exit();
-        } else {
-            $error = "Wrong password";
-        }
+    if (login_user($username, $password, $conn)) {
+        header("Location: account.php");
+        exit();
     } else {
-        $error = "User not found";
+        $error = "Wrong login or password";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
