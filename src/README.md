@@ -37,10 +37,10 @@ Recipes can be created by logged in users. Users can add a picture, describe all
 
 # Database Tables
 
-**Table 1** (Denis Anderson) - Users 
+**Table 1** (Jekaterina Zasijenko) - Users 
 - stores all the user info, such as usernames, passwords, user id, and their roles
 
-**Table 2** (Jekaterina Zasijenko) - Recipes
+**Table 2** (Denis Anderson) - Recipes
 - stores recipe info: picture, name, ingredients, steps to take
 
 **Table 3** (Martin Pevgonen) - Favorites
