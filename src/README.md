@@ -53,16 +53,16 @@ Recipes can be created by logged in users. Users can add a picture, describe all
 
 # Created Forms
 
-**Form 1(Jekaterina Zasijenko): Registration:** |
-[github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/account.php#) | 
+**Form 1 (Jekaterina Zasijenko): Registration:** |
+[github](https://github.com/ysbdfb/website/blob/main/src/account.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/account.php#) | 
 
 Validations: trim() on username and email, password_hash() for secure storage; HTML required attribute (username, email, password); Database uniqueness check on username/email
 
-**Form 2 (Jekaterina Zasijenko):Login:** | [github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/account.php#) |
+**Form 2 (Jekaterina Zasijenko):Login:** | [github](https://github.com/ysbdfb/website/blob/main/src/account.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/account.php#) |
 
 Validations: Error message "Wrong login or password"; username lookup in database + password_verify(); HTML required attribute (username, email, password)
 
-**Form 3 (Denis Anderson): Recipe Submission:** | [github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/poisonrecipe.php) |
+**Form 3 (Denis Anderson): Recipe Submission:** | [github](https://github.com/ysbdfb/website/blob/main/src/poisonrecipe.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/poisonrecipe.php) |
 
 Validations: HTML required attribute (title, ingredients[], steps[]); redirects to account.php if not logged in; image upload validation checks UPLOAD_ERR_OK, moves file to uploads/ folder
 
@@ -71,15 +71,15 @@ Validations: HTML required attribute (title, ingredients[], steps[]); redirects 
 
 # Created Tables
 
-**Table 1 (Martin Pevgonen):** Users Table | [github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
+**Table 1 (Martin Pevgonen):** Users Table | [github](https://github.com/ysbdfb/website/blob/main/src/admin/index.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
 
 (Admin Panel → Users)  
 
- **Table 2 (Martin Pevgonen):** Recipes Table | [github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
+ **Table 2 (Martin Pevgonen):** Recipes Table | [github](https://github.com/ysbdfb/website/blob/main/src/admin/index.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
 
 (Admin Panel → Recipes)  
 
- **Table 3 (Denis Anderson):** Favorites Table | [github]() | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
+ **Table 3 (Denis Anderson):** Favorites Table | [github](https://github.com/ysbdfb/website/blob/main/src/admin/index.php) | [shell.hamk.fi](http://shell.hamk.fi/~bbcap25_10/website-ultra/src/admin/index.php) 
  
  (Admin Panel → Favorites)  
 
